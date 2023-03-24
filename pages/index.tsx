@@ -1,16 +1,16 @@
 /* eslint-disable */
 
-import Head from "next/head"
-import Image from "next/image"
-import { useState } from "react"
-import { CodeSnippet } from "../src/components/CodeSnippet"
-import { minScript } from "../src/utils/min_script"
-import ExampleImage from "../public/example.png"
-import splitbee from "@splitbee/web"
+import bayanplus from "bayanplus-js";
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import ExampleImage from "../public/example.png";
+import { minScript } from "../src/utils/min_script";
 export default function Home() {
-  const [input, setInput] = useState<string>()
-  const [crns, setCrns] = useState<string[]>([])
-  const [copiedCode, setCopiedCode] = useState<string>()
+  const [input, setInput] = useState<string>();
+  const [crns, setCrns] = useState<string[]>([]);
+  const [copiedCode, setCopiedCode] = useState<string>();
+
   return (
     <>
       <div className="flex justify-center min-h-screen bg-gradient-to-r from-indigo-500">
@@ -19,26 +19,25 @@ export default function Home() {
             KFUPM auto register
           </h1>
           <div className="text-center mt-2">
-            <span>The proccess will not take 2 minutes 🐝 </span>
+            <span>مفروض ماياخذ منك دقيقتين 🐝 </span>
             <p className="mt-4 text-xl text-black">
-              <strong>First</strong> you need to install this extension in your
-              browser
               <a
                 href="https://chrome.google.com/webstore/detail/run-javascript/lmilalhkkdhfieeienjbiicclobibjao?hl=en"
                 className="ml-2 text-blue-500 underline"
                 onClick={() => {
-                  splitbee.track("Click extension link")
+                  bayanplus.event("Click extension link");
                 }}
               >
-                Run JavaScript
+                Run JavaScript{" "}
               </a>
+              <strong>اول شي</strong> حمل الاضافه هذه في المتصفح حقك
             </p>
             <p className="mt-4 text-xl text-black">
-              <strong>Second</strong> you need to enter the courses
-              <strong>
+              <strong>ثانيا</strong> ادخل ارقام المواد الي تبي تسجلهم
+              <strong className="block">
                 <code className="text-base">`CRNs`</code>
               </strong>
-              you wish to register seperated by comma
+              <span>وحط بينهم فاصله</span>
             </p>
             <div>
               <textarea
@@ -54,29 +53,29 @@ export default function Home() {
                   className="bg-black text-white px-8 py-2 rounded-lg"
                   onClick={(e) => {
                     if (input) {
-                      setCrns(input.split(","))
-                      setCopiedCode(minScript(input.split(",")))
-                      splitbee.track("Click Add CRNs Button")
+                      setCrns(input.split(","));
+                      setCopiedCode(minScript(input.split(",")));
+                      bayanplus.event("Click Add CRNs Button");
                     }
                   }}
                 >
-                  Ok
+                  اوكي
                 </button>
                 <button
                   className="bg-black text-white px-8 py-2 rounded-lg"
                   onClick={() => {
-                    setCrns([])
-                    setInput("")
-                    setCopiedCode("")
+                    setCrns([]);
+                    setInput("");
+                    setCopiedCode("");
                   }}
                 >
-                  Clear
+                  امسح
                 </button>
               </div>
             </div>
             <p className="mt-4 text-xl text-black">
-              <strong>Third</strong> you need to copy this code and paste it in
-              the extension
+              <strong>ثالثا </strong>
+              <span>انسخ الكود هذه وحطه في الاضافه</span>
             </p>
             <textarea
               rows={4}
@@ -87,20 +86,21 @@ export default function Home() {
               <button
                 className="bg-black text-white px-8 py-2 rounded-lg"
                 onClick={() => {
-                  copiedCode && navigator.clipboard.writeText(copiedCode)
-                  splitbee.track("Copied Code")
+                  copiedCode && navigator.clipboard.writeText(copiedCode);
+                  bayanplus.event("Copied Code");
                 }}
               >
-                Copy!
+                انسخ!
               </button>
             </div>
             <p className="mt-4 text-xl text-black">
-              <strong>Finally</strong> go to the registration page and click on
-              the extension icon and paste the code,click aaand you're done!
+              <strong>اخيرا</strong> روح صفحه التسجيل وضغط على الايقونه حقت
+              الاضافه وحط الكود الي نسخته
             </p>
             <i>
-              <strong>Note:</strong> If you want to remove the code just delete
-              it from the extension and click save again
+              <strong>ملاحظه:</strong>
+              ترا لازم تدخل صفحه التسجيل عشان يسجلك المواد، يعني لاتنتظر هو
+              بنفسه يدخلك، انت اضغط الزر حق الصفحه اذا بدا التسجيل وبيسجلك
             </i>
             <div>
               <Image
@@ -114,5 +114,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  )
+  );
 }
