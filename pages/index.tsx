@@ -8,7 +8,7 @@ import ExampleImage from "../public/example.png";
 import { minScript } from "../src/utils/min_script";
 export default function Home() {
   const [input, setInput] = useState<string>();
-  const [crns, setCrns] = useState<string[]>([]);
+  const [_, setCrns] = useState<string[]>([]);
   const [copiedCode, setCopiedCode] = useState<string>();
 
   return (
